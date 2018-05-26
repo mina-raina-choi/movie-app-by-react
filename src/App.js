@@ -23,7 +23,42 @@ const movies = [
 ]
 
 class App extends Component {
+
+  // Render: componentWillMount() -> render() -> componentDidMount()
+  // Update: componentWillReceiveProps() -> shouldComponentUpdate() ->
+  // shouldComponentUpdate() -> render() -> componentDidUpdate()
+
+
+  componentWillReceiveProps() {
+
+  }
+  
+  shouldComponentUpdate() {
+    // old props와 new props가 다르면 리액트는 update를 해야겠다!!!라고 판단
+  }
+
+  componentWillUpdate() {
+
+  } 
+
+  componentDidUpdate() {
+
+  }
+
+
+
+  componentWillMount() {
+    console.log("1. componentWillMount")
+    // api 요청 
+  }
+
+  componentDidMount() {
+    console.log("3. componentDidMount")
+    // 로딩성공
+  }
+
   render() {
+    console.log("2. render")
     return (
       <div className="App">
         {movies.map((movie, index) => {
