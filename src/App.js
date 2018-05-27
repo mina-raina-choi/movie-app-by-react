@@ -13,38 +13,28 @@ class App extends Component {
     // old props와 new props가 다르면 리액트는 update를 해야겠다!!!라고 판단
   }
 
-  state = {
-    greeting: "Hello!",
-    movies : [
-      {
-        title: "Matrics",
-        poster: "https://cdn.namuwikiusercontent.com/s/b7f0bd8736d9a7bdd3bffc9bd9cf20d2ca8016b3d198dd2fb354c2eb34382b1ca69114814b95ef28b4d4d9eca6f32a0aac8c4eea562b30dbabbf73e57cb73de715d09185821a46df7fb68a7cc2cd7394?e=1529190443&k=_I2LpkY1sWZLVpYQmnLAEw",
-      },
-      {
-        title: "Full Metal Jacket",
-        poster: "http://www.skolice.me/wp-content/uploads/2017/12/DAH-%C5%BDIVOTA-712x1024.jpg",
-      },
-      {
-        title: "Oldboys",
-        poster: "https://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg",
-      },
-      {
-        title: "Star Wars",
-        poster: "http://www.skolice.me/wp-content/uploads/2017/12/Star-Wars-Posljednji-d%C5%BEedaji-2-e1513171731333.jpg"
-      }
-    ]
-    
-  }
+  state = { }
   
   componentDidMount() {
     setTimeout(() => {
       // 절대 직접적으로 state변경하지말고 setState를 사용해서
       // state를 변경하면 render()가 다시 실행됨.
       this.setState({
-        movies: [
-          ...this.state.movies,
+        movies : [
           {
-            title: "Transformer",
+            title: "Matrics",
+            poster: "https://cdn.namuwikiusercontent.com/s/b7f0bd8736d9a7bdd3bffc9bd9cf20d2ca8016b3d198dd2fb354c2eb34382b1ca69114814b95ef28b4d4d9eca6f32a0aac8c4eea562b30dbabbf73e57cb73de715d09185821a46df7fb68a7cc2cd7394?e=1529190443&k=_I2LpkY1sWZLVpYQmnLAEw",
+          },
+          {
+            title: "Full Metal Jacket",
+            poster: "http://www.skolice.me/wp-content/uploads/2017/12/DAH-%C5%BDIVOTA-712x1024.jpg",
+          },
+          {
+            title: "Oldboys",
+            poster: "https://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg",
+          },
+          {
+            title: "Star Wars",
             poster: "http://www.skolice.me/wp-content/uploads/2017/12/Star-Wars-Posljednji-d%C5%BEedaji-2-e1513171731333.jpg"
           }
         ]
@@ -52,15 +42,18 @@ class App extends Component {
     }, 2000);
   }
 
-
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      return <Moive title={movie.title} poster={movie.poster} key={index}/>
+     })
+    return movies
+  }
+ 
   render() {
     console.log("2. render")
     return (
       <div className="App">
-        {this.state.greeting}
-        {this.state.movies.map((movie, index) => {
-         return <Moive title={movie.title} poster={movie.poster} key={index}/>
-        })}
+        {this.state.movies ? this._renderMovies() : "Loading"}
       </div>
     );
   }
