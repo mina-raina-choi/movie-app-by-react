@@ -15,8 +15,6 @@ class App extends Component {
 
   componentDidMount() {
     this._getMovies();
-    this._asyncFirst();
-    this._asyncSecond();
   }
 
 
@@ -30,20 +28,6 @@ class App extends Component {
     })
   };
 
-  _asyncFirst = () => {
-    return fetch("https://yts.am/api/v2/list_movies.json?sort_by=title")
-      .then(res => res.json())
-      .then(json => console.log("_asyncFirst", json))
-      .catch(err => console.log(err));
-  }
-
-  _asyncSecond = () => {
-    return fetch("https://yts.am/api/v2/list_movies.json?sort_by=year")
-      .then(res => res.json())
-      .then(json => console.log("_asyncSecond", json))
-      .catch(err => console.log(err));
-  }
- 
   _callApi = () => {
     return fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
       .then(res => res.json())
@@ -64,9 +48,9 @@ class App extends Component {
   };
 
   render() {
-    console.log("2. render");
+    const { movies } = this.state; 
     return (
-      <div className="App">
+      <div className={movies ? "App" : "App--loading"}>
         {this.state.movies ? this._renderMovies() : "Loading"}
       </div>
     );
